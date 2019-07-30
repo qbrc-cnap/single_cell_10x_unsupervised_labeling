@@ -1,0 +1,7 @@
+{
+    "sample_limit":{
+        "type": "AnalysisUnitConstraint",
+        "handler": "constraints.py",
+        "description": "For limiting the maximum number of samples/fastq that will be processed"
+    }
+}
