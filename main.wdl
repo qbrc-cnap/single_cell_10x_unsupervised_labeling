@@ -12,6 +12,12 @@ workflow SingleCell10xUnsupervisedWorkflow {
     String samplename
     String species
 
+    String output_zip_name
+
+    String genome
+    String git_repo_url
+    String git_commit_hash
+
     call cellranger_singlecell.cellranger_count as count {
         input:
             zipped_fastqs = zipped_fastqs,
