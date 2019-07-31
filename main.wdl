@@ -29,7 +29,7 @@ workflow SingleCell10xUnsupervisedWorkflow {
 
     call scmatch_singlecell.scmatch_celltype as celltype {
         input:
-            zipped_cellrange_output = count.zipped_cellrange_output,
+            zipped_cellranger_filtered_csv = count.zipped_cellranger_filtered_csv,
             zipped_reference = zipped_scmatch_reference,
             species = species
     }
@@ -49,4 +49,9 @@ workflow SingleCell10xUnsupervisedWorkflow {
         workflow_short_description: "A pipeline for 10x single cell typing; and differential expression of unsupervised clusters and background."
         workflow_long_description: "Use this workflow for aligning 10x sequencing output, barcode assignment, gene expression normalization, unsupervised clustering, and differential expression against background for each cluster with 10x's Cellranger software. The cell typing is done with scMatch."
     }
+}
+
+task collate_outputs {
+    File cellranger_qc_report
+    File report
 }

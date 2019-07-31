@@ -3,7 +3,7 @@ workflow ScmatchSingleCellMockWorkflow {
 }
 
 task scmatch_celltype {
-    File zipped_cellrange_output
+    File zipped_cellranger_filtered_csv
     File zipped_reference
     String species
 
@@ -13,15 +13,17 @@ task scmatch_celltype {
     command {
         mkdir ref;
         tar xzf ${zipped_reference} -C ref --strip-components 1;
-        mkdir data;
-        tar xzf ${zipped_cellrange_output} -C data --strip-components 1;
+        mkdir filtered_feature_bc_matrix;
+        tar xzf ${zipped_cellranger_filtered_csv} \
+            -C filtered_feature_bc_matrix \
+            --strip-components 1;
         python /opt/software/scMatch/scMatch.py \
             --coreNum 8 \
             --refType ${species} \
             --testType ${species} \
             --refDS ./ref \
             --dFormat 10x \
-            --testDS ./data/outs/filtered_feature_bc_matrix \
+            --testDS ./filtered_feature_bc_matrix \
             --keepZeros n;
         tar czf \
             ${samplename}_scMatch.tar.gz \

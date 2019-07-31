@@ -34,11 +34,36 @@ task cellranger_count {
             --transcriptome=./ref \
             --fastqs=./fastqs \
             --expect-cells=${num_expected_cells};
-        tar czf ${samplename}_cellranger.tar.gz ./${samplename}
+        mv ./${samplename}/outs/web_summary.html .;
+        tar czf \
+            ${samplename}_cellranger_analysis.tar.gz \
+            --directory=./${samplename}/outs/analysis;
+        
+        mv ./${samplename}/outs/raw_feature_bc_matrix.h5 .;
+        tar czf \
+            ${samplename}_cellranger_raw_csv.tar.gz \
+            --directory=./${samplename}/outs/raw_feature_bc_matrix;
+        
+        mv ./${samplename}/outs/filtered_feature_bc_matrix.h5 .;
+        tar czf \
+            ${samplename}_cellranger_filtered_csv.tar.gz \
+            --directory=./${samplename}/outs/filtered_feature_bc_matrix;
+        
+        mv ./${samplename}/outs/possorted_genome_bam.bam .;
+        mv ./${samplename}/outs/possorted_genome_bam.bam.bai .;
+        mv ./${samplename}/outs/cloupe.cloupe .;
     }
 
     output {
-        File zipped_cellranger_output = "${samplename}_cellranger.tar.gz"
+        File cellranger_qc_summary = "web_summary.html"
+        File zipped_cellranger_analysis = "${samplename}_cellranger_analysis.tar.gz"
+        File zipped_cellranger_raw_csv = "${samplename}_cellranger_raw_csv.tar.gz"
+        File zipped_cellranger_filtered_csv = "${samplename}_cellranger_filtered_csv.tar.gz"
+        File cellranger_raw_hdf5 = "raw_feature_bc_matrix.h5"
+        File cellranger_filtered_hdf5 = "filtered_feature_bc_matrix.h5"
+        File cellranger_bam = "possorted_genome_bam.bam"
+        File cellranger_bam_index = "possorted_genome_bam.bam.bai"
+        File cellranger_cloupe = "cloupe.cloupe"
     }
 
     runtime {
