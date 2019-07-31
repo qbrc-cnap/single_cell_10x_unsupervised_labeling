@@ -36,7 +36,7 @@ workflow SingleCell10xUnsupervisedWorkflow {
 
     call reporting.generate_report {
         input:
-            zipped_cellranger_output = count.zipped_cellrange_output,
+            zipped_cellranger_analysis = count.zipped_cellranger_analysis,
             zipped_scmatch_output = celltype.zipped_scmatch_reference
     }
 
