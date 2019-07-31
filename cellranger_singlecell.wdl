@@ -42,13 +42,17 @@ task cellranger_count {
     }
 
     runtime {
-
+        docker: ""
+        cpu: 32
+        memory: "100 GB"
+        disks: "local-disk " + disk_size + " HDD"
+        preemptible: 0
     }
 }
 
 task cellranger_version {
     # runtime commands
-    Int disk_size = 10
+    Int disk_size = 20
 
     command {
         version=$(/opt/software/cellranger/cellranger | head -2 | tail -1)
@@ -59,6 +63,10 @@ task cellranger_version {
     }
 
     runtime {
-
+        docker: ""
+        cpu: 2
+        memory: "2 GB"
+        disks: "local-disk " + disk_size + " HDD"
+        preemptible: 0
     }
 }

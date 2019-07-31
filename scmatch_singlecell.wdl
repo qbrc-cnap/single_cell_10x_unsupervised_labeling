@@ -7,6 +7,9 @@ task scmatch_celltype {
     File zipped_reference
     String species
 
+    # runtime commands
+    Int disk_size = 
+
     command {
         mkdir ref;
         tar xzf ${zipped_reference} -C ref --strip-components 1;
@@ -31,6 +34,10 @@ task scmatch_celltype {
     }
 
     runtime {
-
+        docker: ""
+        cpu: 8
+        memory: "6 GB"
+        disks: "local-disk " + disk_size + " HDD"
+        preemptible: 0
     }
 }

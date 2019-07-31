@@ -43,5 +43,6 @@ task generate_report {
         cpu: 2
         memory: "4 G"
         disks: "local-disk " + disk_size + " HDD"
+        preemptible: 0
     }
 }
