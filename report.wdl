@@ -2,23 +2,22 @@ workflow ReportSingleCell10xMockWorkflow {
 
 }
 
-task create_plots {
-    clusts=$(find . -name "*.csv" | sort -V)
-}
-
 task generate_report {
     File zipped_cellranger_output
+    File zipped_scmatch_output
 
     # runtime commands
     Int disk_size = 200
 
     command {
-        mkdir data;
-        tar xzf ${zipped_cellranger_output} -C data --strip-components 1;
-        clusts=$(find ./data/outs/analysis/clustering/ -name "*.csv" | sort -V)
+        mkdir cellranger_data;
+        tar xzf ${zipped_cellranger_output} -C cellranger_data --strip-components 1;
+        mkdir scmatch_data;
+        tar xzf ${zipped_scmatch_output} -C scmatch_data --strip-components 1;
+        clusts=$(find ./cellranger_data/outs/analysis/clustering/ -name "*.csv" | sort -V)
         python /opt/software/plotting.py \
-            --scmatch ./data/outs/filtered_feature_bc_matrix/annotation_result_keep_expressed_genes/human_Spearman_top_ann.csv \
-            --tsne ./data/outs/analysis/tsne/2_components/projection.csv \
+            --scmatch ./scmatch_data/human_Spearman_top_ann.csv \
+            --tsne ./cellranger_data/outs/analysis/tsne/2_components/projection.csv \
             --clusters ${clusts};
         kmeansclusts=$(ls *kmeans*_cluster.png);
         python /opt/software/generate_report.py \

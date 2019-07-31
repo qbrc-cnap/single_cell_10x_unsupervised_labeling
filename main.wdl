@@ -1,5 +1,6 @@
 import "cellranger_singlecell.wdl" as cellranger_singlecell
 import "scmatch_singlecell.wdl" as scmatch_singlecell
+import "report.wdl" as reporting
 
 workflow SingleCell10xUnsupervisedWorkflow {
     # This workflow is a 'super' workflow
@@ -31,6 +32,12 @@ workflow SingleCell10xUnsupervisedWorkflow {
             zipped_cellrange_output = count.zipped_cellrange_output,
             zipped_reference = zipped_scmatch_reference,
             species = species
+    }
+
+    call reporting.generate_report {
+        input:
+            zipped_cellranger_output = count.zipped_cellrange_output,
+            zipped_scmatch_output = celltype.zipped_scmatch_reference
     }
 
     output {
