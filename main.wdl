@@ -34,10 +34,16 @@ workflow SingleCell10xUnsupervisedWorkflow {
             species = species
     }
 
+    call scmatch_singlecell.scmatch_version as scmatch_version {}
+
     call reporting.generate_report {
         input:
             zipped_cellranger_analysis = count.zipped_cellranger_analysis,
-            zipped_scmatch_output = celltype.zipped_scmatch_reference
+            zipped_scmatch_output = celltype.zipped_scmatch_reference,
+            git_repo_url = ,
+            git_commit_hash = ,
+            scmatch_version = ,
+            cellranger_version = cellranger_version.cellranger_version,
     }
 
     output {

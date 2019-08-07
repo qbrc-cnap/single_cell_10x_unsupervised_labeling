@@ -20,7 +20,8 @@ GRAPH = 'graph_png'
 KMEANS = 'kmeans_pngs'
 SAMPLENAME = 'samplename'
 CELLRANGER_VERSION = 'cellranger_version'
-SCMATCH_VERSION = 'scmatch_version'
+SCMATCH_HASH = 'scmatch_git_commit_hash'
+SCMATCH_URL = 'scmatch_git_repo_url'
 GIT_REPO = 'git_repo'
 GIT_COMMIT = 'git_commit'
 GENOME = 'genome'
@@ -87,8 +88,10 @@ def parse_input():
                         help="Name of input FASTQ tarbell")
     parser.add_argument('-s', required=True, dest=SAMPLENAME,
                         help="sample name")
-    parser.add_argument('--scmatch', required=True, dest=SCMATCH_VERSION,
-                        help="scMatch version string")
+    parser.add_argument('--scmatchhash', required=True, dest=SCMATCH_HASH,
+                        help="scMatch git commit hash")
+    parser.add_argument('--scmatchurl', required=True, dest=SCMATCH_URL,
+                        help="scMatch git repo url")
     parser.add_argument('--cellranger', required=True, dest=CELLRANGER_VERSION,
                         help="cellranger version string")
     parser.add_argument('-j', required=True, dest=CFG,

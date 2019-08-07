@@ -5,6 +5,10 @@ workflow ReportSingleCell10xMockWorkflow {
 task generate_report {
     File zipped_cellranger_analysis
     File zipped_scmatch_output
+    String git_repo_url
+    String git_commit_hash
+    String scmatch_version
+    String cellranger_version
 
     # runtime commands
     Int disk_size = 200
@@ -35,6 +39,10 @@ task generate_report {
             --celltype 1_celltype_to_tsne.png \
             --graphcluster 2_celltype_to_knn_lmo_cluster.png \
             --kmeans ${kmeansclusts} \
+            --scmatch "${scmatch_version}" \
+            --cellranger "${cellranger_version}" \
+            --githash "${git_commit_hash}" \
+            --gitrepo "${git_repo_url}" \
             -j config.json \
             -t /opt/report/report.md \
             -o completed_report.md;

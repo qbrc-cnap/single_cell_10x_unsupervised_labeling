@@ -1,5 +1,16 @@
 workflow ScmatchSingleCellMockWorkflow {
+    File zipped_cellranger_filtered_csv
+    File zipped_reference
+    String species
 
+    call scmatch_celltype {
+        input:
+            zipped_cellranger_filtered_csv = zipped_cellranger_filtered_csv,
+            zipped_reference = zipped_reference,
+            species = species
+    }
+
+    call scmatch_version {}
 }
 
 task scmatch_celltype {
@@ -41,5 +52,20 @@ task scmatch_celltype {
         memory: "6 GB"
         disks: "local-disk " + disk_size + " HDD"
         preemptible: 0
+    }
+}
+
+task scmatch_version {
+    # runtime commands
+    Int disk_size = 20
+
+    command {
+        git_commit_hash=$(echo /opt/software/git_commit_hash)
+        git_repo_url=$(echo /opt/software/git_repo_url)
+    }
+
+    output {
+        String git_commit_hash = "${git_commit_hash}"
+        String git_repo_url = "${git_repo_url}"
     }
 }
