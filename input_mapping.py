@@ -24,31 +24,24 @@ def map_inputs(user, all_data, data_name, id_list):
 
     '''
     unmapped_data = all_data[data_name]
-    tarbell_suffix = '.tar.gz'
-    tarbell_path_list = []
+    input_suffix = '.tar.gz'
+    input_path_list = []
+    # Pull all the uploaded files that end with above suffix.
     for pk in unmapped_data:
         r = Resource.objects.get(pk=pk)
         if (r.owner == user) or (user.is_staff):
-            if r.path.endswith(tarbell_suffix):
-                tarbell_path_list.append(r.path)
+            if r.path.endswith(input_suffix):
+                input_path_list.append(r.path)
             else:
                 print('Skipping %s' % r.path)
         else:
             raise Exception('The user %s is not the owner of Resource with primary key %s.' % (user, pk))
     
     # now we have a list of files that had the correct naming scheme.
-    # Need to check for pairing:
-    r1_samples = [os.path.basename(x)[:-len(r1_suffix)] for x in r1_path_list]
-    r2_samples = [os.path.basename(x)[:-len(r2_suffix)] for x in r2_path_list]
-    r1_dict = dict(zip(r1_samples, r1_path_list))
-    r2_dict = dict(zip(r2_samples, r2_path_list))
 
-    sample_intersection = set(r1_samples).intersection(r2_samples)
-
-    # now have the samples that have both R1 and R2.  Create the final map
-    final_r1_list = []
-    final_r2_list = []
-    for s in sample_intersection:
-        final_r1_list.append(r1_dict[s])
-        final_r2_list.append(r2_dict[s])
-    return {id_list[0]:final_r1_list, id_list[1]:final_r2_list}
+    input_samples = [os.path.basename(x)[ : -len(input_suffix)]
+                     for x in input_path_list]
+    #sample_dict = dict(zip(input_samples, input_path_list))
+    return {id_list[0] : input_path_list}
+    # Unsure if I need second key-pair to be returned
+    #return {id_list[0]:final_r1_list, id_list[1]:final_r2_list}
