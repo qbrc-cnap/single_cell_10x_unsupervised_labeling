@@ -117,27 +117,28 @@ if __name__ == '__main__':
 
 
     # parse the json file which has additional variables
-    j = json.load(open(arg_dict[CFG]))
+    #j = json.load(open(arg_dict[CFG]))
 
-    # alter how the files are displayed:
-    r1_files = arg_dict[R1]
-    r1_files = [r.split('/')[-1] for r in r1_files]
-    r2_files = arg_dict[R2]
-    r2_files = [r.split('/')[-1] for r in r2_files]
-    samples = [os.path.basename(x)[:-len('_R1.fastq.gz')] for x in r1_files]
-    file_display = []
-    for r1, r2, s in zip(r1_files, r2_files, samples):
-        ipd = InputDisplay(s, r1, r2)
-        file_display.append(ipd)
-
-
+    # Make the dictionaries to go into context
+    versions_dict = {"cellranger_version" : arg_dict[CELLRANGER_VERSION],
+                     "scmatch_version" : arg_dict[SCMATCH_VERSION]}
+    graph_dict = {
+        "celltype_clust" : arg_dict[SCMATCH],
+        "graph_clust" : arg_dict[GRAPH],
+        "kmeans_clust" : arg_dict[KMEANS]
+    }
+    name_dict = {
+        "output_report_filename" : arg_dict[OUTPUT],
+        "input_fastq_filename" : arg_dict[INPUT],
+        "sample_name" : arg_dict[SAMPLENAME]
+    }
     # make the context dictionary
     context = {}
     context.update(versions_dict)
-    context.update(arg_dict)
-    context.update(j)
-    
-    context.update({'file_display': file_display})
+    context.update(graph_dict)
+    context.update(name_dict)
+    #context.update(arg_dict)
+    #context.update(j)
 
     # fill and write the completed report:
     fill_template(context, input_template_path, output_file)
