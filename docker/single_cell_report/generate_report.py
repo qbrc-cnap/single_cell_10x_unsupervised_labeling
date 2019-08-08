@@ -124,12 +124,13 @@ if __name__ == '__main__':
 
     # Make the dictionaries to go into context
     versions_dict = {"cellranger_version" : arg_dict[CELLRANGER_VERSION],
-                     "scmatch_version" : arg_dict[SCMATCH_VERSION]}
+                     "scmatch_hash" : arg_dict[SCMATCH_HASH],
+                     "scmatch_url" : arg_dict[SCMATCH_URL]}
     graph_dict = {
         "celltype_clust" : arg_dict[SCMATCH],
-        "graph_clust" : arg_dict[GRAPH],
-        "kmeans_clust" : arg_dict[KMEANS]
+        "graph_clust" : arg_dict[GRAPH]
     }
+    kmeans_list = arg_dict[KMEANS]
     name_dict = {
         "output_report_filename" : arg_dict[OUTPUT],
         "input_fastq_filename" : arg_dict[INPUT],
@@ -139,6 +140,7 @@ if __name__ == '__main__':
     context = {}
     context.update(versions_dict)
     context.update(graph_dict)
+    context.update(kmeans_list)
     context.update(name_dict)
     #context.update(arg_dict)
     #context.update(j)
