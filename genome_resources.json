@@ -1,10 +1,10 @@
 {
     "Ensembl Homo sapiens GRCh38.95":{
-        "cellranger_reference": "gs://cnap-hsph-resources/grch38.95/",
-        "scmatch_reference": "gs://cnap-hsph-resources/grch38.95/",
+        "cellranger_reference": "gs://cnap-hsph-resources/grch38.95/refdata-cellranger-GRCh38-3.0.0.tar.gz",
+        "scmatch_reference": "gs://cnap-hsph-resources/grch38.95/homo_sapien_FANTOM5.tar.gz"
     },
     "Ensembl Homo sapiens GRCh37.95":{
-        "cellranger_reference": "gs://cnap-hsph-resources/grch37.95/",
-        "scmatch_reference": "gs://cnap-hsph-resources/grch37.95/",
+        "cellranger_reference": "gs://cnap-hsph-resources/grch37.95/refdata-cellranger-hg19-3.0.0.tar.gz",
+        "scmatch_reference": "gs://cnap-hsph-resources/grch38.95/homo_sapien_FANTOM5.tar.gz"
     }
 }
