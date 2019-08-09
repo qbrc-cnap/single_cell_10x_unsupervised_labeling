@@ -77,13 +77,15 @@ This allows us to run the *exact* same pipeline at any later time, discarding an
 ### Cell type matching
 
 ### Comparison of cell type matches to unsupervised Clusters
-{{}}
+![]( {{celltype_clust}} )
 ##### Graph based clustering
-{{}}
+![]( {{graph_clust}} )
 ##### K-means clustering
 
-{% for obj in kmeans_list %}
-    {{obj}}
+{% for obj in kmeans_clust %}
+
+![]( {{obj}} )
+
 {% endfor %}
 
 

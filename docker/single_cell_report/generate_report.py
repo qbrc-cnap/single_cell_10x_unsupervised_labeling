@@ -94,17 +94,22 @@ def parse_input():
                         help="scMatch git repo url")
     parser.add_argument('--cellranger', required=True, dest=CELLRANGER_VERSION,
                         help="cellranger version string")
-    parser.add_argument('-j', required=True, dest=CFG,
-                        help="Config file")
+    parser.add_argument('--gitrepo', required=True, dest=GIT_REPO,
+                        help="git repo URL")
+    parser.add_argument('--githash', required=True, dest=GIT_COMMIT,
+                        help="git commit hash")
+    #parser.add_argument('-j', required=True, dest=CFG,
+    #                    help="Config file")
     args = parser.parse_args()
     return vars(args)
 
 
-def fill_template(context, template_path, output):
+def fill_template(context, plot_list, template_path, output):
     if os.path.isfile(template_path):
         template = get_jinja_template(template_path)
         with open(output, 'w') as fout:
-            fout.write(template.render(context))
+            fout.write(template.render(context,
+                                       kmeans_clust = plot_list))
     else:
         print('The report template was not valid: %s' % template_path)
         sys.exit(1)
@@ -125,14 +130,17 @@ if __name__ == '__main__':
     # Make the dictionaries to go into context
     versions_dict = {"cellranger_version" : arg_dict[CELLRANGER_VERSION],
                      "scmatch_hash" : arg_dict[SCMATCH_HASH],
-                     "scmatch_url" : arg_dict[SCMATCH_URL]}
+                     "scmatch_url" : arg_dict[SCMATCH_URL],
+                     "git_repo" : arg_dict[GIT_REPO],
+                     "git_commit" : arg_dict[GIT_COMMIT]}
     graph_dict = {
         "celltype_clust" : arg_dict[SCMATCH],
         "graph_clust" : arg_dict[GRAPH]
     }
+    #kmeans_dict = {"kmeans_clust" : arg_dict[KMEANS]}
     kmeans_list = arg_dict[KMEANS]
     name_dict = {
-        "output_report_filename" : arg_dict[OUTPUT],
+        #"output_report_filename" : arg_dict[OUTPUT],
         "input_fastq_filename" : arg_dict[INPUT],
         "sample_name" : arg_dict[SAMPLENAME]
     }
@@ -140,10 +148,10 @@ if __name__ == '__main__':
     context = {}
     context.update(versions_dict)
     context.update(graph_dict)
-    context.update(kmeans_list)
+    #context.update(kmeans_dict)
     context.update(name_dict)
     #context.update(arg_dict)
     #context.update(j)
 
     # fill and write the completed report:
-    fill_template(context, input_template_path, output_file)
+    fill_template(context, kmeans_list, input_template_path, output_file)
