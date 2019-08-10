@@ -84,6 +84,7 @@ This allows us to run the *exact* same pipeline at any later time, discarding an
 
 {% for obj in kmeans_clust %}
 
+###### {{ loop.index + 1 }} cluster K-means
 ![]( {{obj}} )
 
 {% endfor %}

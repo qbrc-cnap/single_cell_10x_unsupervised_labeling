@@ -50,10 +50,12 @@ task generate_report {
             -H /opt/report/report.css \
             -s completed_report.md \
             -o analysis_report.html;
+        zip cluster_plots.zip *.png;
     }
 
     output {
         File report = "analysis_report.html"
+        File zipped_plots = "cluster_plots.zip"
     }
 
     runtime {
