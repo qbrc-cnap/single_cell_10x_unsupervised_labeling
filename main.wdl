@@ -22,7 +22,9 @@ workflow SingleCell10xUnsupervisedWorkflow {
     call cellranger_singlecell.cellranger_count as count {
         input:
             zipped_fastqs = zipped_fastqs,
-            zipped_reference = zipped_cellranger_reference
+            zipped_reference = zipped_cellranger_reference,
+            num_expected_cells = num_expected_cells,
+            samplename = samplename
     }
 
     call cellranger_singlecell.cellranger_version as cellranger_version {}
@@ -31,22 +33,26 @@ workflow SingleCell10xUnsupervisedWorkflow {
         input:
             zipped_cellranger_filtered_csv = count.zipped_cellranger_filtered_csv,
             zipped_reference = zipped_scmatch_reference,
-            species = species
+            species = species,
+            samplename = samplename
     }
 
-    call scmatch_singlecell.scmatch_version as scmatch_version {}
+    #call scmatch_singlecell.scmatch_version as scmatch_version {}
+    call scmatch_singlecell.commit_hash as scmatch_commit_hash{}
+
+    call scmatch_singlecell.repo_url as scmatch_repo_url {}
 
     call reporting.generate_report {
         input:
             zipped_cellranger_analysis = count.zipped_cellranger_analysis,
-            zipped_scmatch_output = celltype.zipped_scmatch_reference,
+            zipped_scmatch_output = celltype.zipped_scmatch_output,
             samplename = samplename,
             genome = genome,
             git_repo_url = git_repo_url,
             git_commit_hash = git_commit_hash,
-            scmatch_hash = scmatch_version.git_commit_hash,
-            scmatch_url = scmatch_version.git_repo_url,
-            cellranger_version = cellranger_version.cellranger_version
+            scmatch_hash = scmatch_commit_hash.git_commit_hash,
+            scmatch_url = scmatch_repo_url.git_repo_url,
+            cellranger_version = cellranger_version.version
     }
 
     output {
@@ -60,7 +66,7 @@ workflow SingleCell10xUnsupervisedWorkflow {
     }
 }
 
-task collate_outputs {
-    File cellranger_qc_report
-    File report
-}
+#task collate_outputs {
+#    File cellranger_qc_report
+#    File report
+#}

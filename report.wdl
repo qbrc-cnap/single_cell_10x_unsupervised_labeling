@@ -25,7 +25,7 @@ task generate_report {
             ${zipped_cellranger_analysis} \
             -C cellranger_data \
             --strip-components 1;
-        tar xzf ${zipped_cellranger_output} -C cellranger_data --strip-components 1;
+        tar xzf ${zipped_cellranger_analysis} -C cellranger_data --strip-components 1;
 
         # Setup the scmatch output data
         mkdir scmatch_data;
@@ -36,14 +36,15 @@ task generate_report {
         python /opt/software/plotting.py \
             --scmatch ./scmatch_data/human_Spearman_top_ann.csv \
             --tsne ./cellranger_data/tsne/2_components/projection.csv \
-            --clusters ${clusts};
+            --clusters $clusts;
 
         # Generate the report
         kmeansclusts=$(ls *kmeans*_cluster.png | sort -V);
+        #cellrangerversion=$(echo ${cellranger_version})
         python /opt/software/generate_report.py \
             --typing 1_celltype_to_tsne.png \
             --graph 2_celltype_to_knn_lmo_cluster.png \
-            --kmeans ${kmeansclusts} \
+            --kmeans $kmeansclusts \
             --genome "${genome}" \
             --scmatchhash "${scmatch_hash}" \
             --scmatch_url "${scmatch_url}" \
