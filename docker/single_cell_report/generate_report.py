@@ -88,6 +88,8 @@ def parse_input():
                         help="Name of input FASTQ tarbell")
     parser.add_argument('-s', required=True, dest=SAMPLENAME,
                         help="sample name")
+    parser.add_argument('--genome', required=True, dest=GENOME,
+                        help="genome name")
     parser.add_argument('--scmatchhash', required=True, dest=SCMATCH_HASH,
                         help="scMatch git commit hash")
     parser.add_argument('--scmatchurl', required=True, dest=SCMATCH_URL,
@@ -132,7 +134,8 @@ if __name__ == '__main__':
                      "scmatch_hash" : arg_dict[SCMATCH_HASH],
                      "scmatch_url" : arg_dict[SCMATCH_URL],
                      "git_repo" : arg_dict[GIT_REPO],
-                     "git_commit" : arg_dict[GIT_COMMIT]}
+                     "git_commit" : arg_dict[GIT_COMMIT],
+                     "genome" : arg_dict[GENOME]}
     graph_dict = {
         "celltype_clust" : arg_dict[SCMATCH],
         "graph_clust" : arg_dict[GRAPH]

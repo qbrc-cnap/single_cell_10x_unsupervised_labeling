@@ -40,10 +40,13 @@ workflow SingleCell10xUnsupervisedWorkflow {
         input:
             zipped_cellranger_analysis = count.zipped_cellranger_analysis,
             zipped_scmatch_output = celltype.zipped_scmatch_reference,
-            git_repo_url = ,
-            git_commit_hash = ,
-            scmatch_version = ,
-            cellranger_version = cellranger_version.cellranger_version,
+            samplename = samplename,
+            genome = genome,
+            git_repo_url = git_repo_url,
+            git_commit_hash = git_commit_hash,
+            scmatch_hash = scmatch_version.git_commit_hash,
+            scmatch_url = scmatch_version.git_repo_url,
+            cellranger_version = cellranger_version.cellranger_version
     }
 
     output {

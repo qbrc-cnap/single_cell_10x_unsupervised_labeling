@@ -56,7 +56,7 @@ Dimensionality reduction with Principal Component Analysis (PCA) is performed up
 
 Differential expression is performed with Cellranger's implementation of sSeq [6]. It involves a two step process of obtaining the estimates for each genes using the method of moments, then regularizing the estimates. The specific contrast groups for the exact differential expression is pairwise comparisons of each cluster (both the graph based and k-means clustering approaches) to the backgroud - i.e. all clusters combined.
 
-Cell type matching is done with scMatch. [7] scMatch annotates single cells by identifying it's closest match from large reference datasets - FANTOM5 [8-10]. The match is calculated by Spearman ranked correlation. The version used for scMatch can be found at {{scmatch_url}} with a git commit hash of {{scmatch_hash}}.
+Cell type matching is done with scMatch. [7] scMatch annotates single cells by identifying it's closest match from large reference datasets - FANTOM5 [8-10]. The match is calculated by Spearman ranked correlation.
 
 
 ## Inputs:
@@ -71,6 +71,10 @@ To facilitate reproducible analyses, the analysis pipeline used to process the d
 and the commit version was {{git_commit}}.
 
 This allows us to run the *exact* same pipeline at any later time, discarding any updates or changes in the process that may have been added.
+
+Additionally, the version used for scMatch can be found at {{scmatch_url}} with a git commit hash of {{scmatch_hash}}.
+
+The genome version used for alignment was {{genome}}.
 
 ## Plots
 

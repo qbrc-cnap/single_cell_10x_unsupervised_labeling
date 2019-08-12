@@ -5,9 +5,14 @@ workflow ReportSingleCell10xMockWorkflow {
 task generate_report {
     File zipped_cellranger_analysis
     File zipped_scmatch_output
+    
+    String samplename
+    String genome
+
     String git_repo_url
     String git_commit_hash
-    String scmatch_version
+    String scmatch_hash
+    String scmatch_url
     String cellranger_version
 
     # runtime commands
@@ -34,21 +39,22 @@ task generate_report {
             --clusters ${clusts};
 
         # Generate the report
-        kmeansclusts=$(ls *kmeans*_cluster.png);
+        kmeansclusts=$(ls *kmeans*_cluster.png | sort -V);
         python /opt/software/generate_report.py \
-            --celltype 1_celltype_to_tsne.png \
-            --graphcluster 2_celltype_to_knn_lmo_cluster.png \
+            --typing 1_celltype_to_tsne.png \
+            --graph 2_celltype_to_knn_lmo_cluster.png \
             --kmeans ${kmeansclusts} \
-            --scmatch "${scmatch_version}" \
+            --genome "${genome}" \
+            --scmatchhash "${scmatch_hash}" \
+            --scmatch_url "${scmatch_url}" \
             --cellranger "${cellranger_version}" \
             --githash "${git_commit_hash}" \
             --gitrepo "${git_repo_url}" \
-            -j config.json \
             -t /opt/report/report.md \
             -o completed_report.md;
         pandoc \
             -H /opt/report/report.css \
-            -s completed_report.md \
+            -s ${samplename} \
             -o analysis_report.html;
         zip cluster_plots.zip *.png;
     }
