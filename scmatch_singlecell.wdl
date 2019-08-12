@@ -10,16 +10,20 @@ workflow ScmatchSingleCellMockWorkflow {
             species = species
     }
 
-    call scmatch_version {}
+    #call scmatch_version {}
+    call repo_url {}
+    call commit_hash {}
+
 }
 
 task scmatch_celltype {
     File zipped_cellranger_filtered_csv
     File zipped_reference
     String species
+    String samplename
 
     # runtime commands
-    Int disk_size = 
+    Int disk_size = 500
 
     command {
         mkdir ref;
@@ -55,17 +59,59 @@ task scmatch_celltype {
     }
 }
 
-task scmatch_version {
+task commit_hash {
     # runtime commands
     Int disk_size = 20
 
     command {
-        git_commit_hash=$(echo /opt/software/git_commit_hash)
-        git_repo_url=$(echo /opt/software/git_repo_url)
+        echo /opt/software/git_commit_hash
     }
 
     output {
-        String git_commit_hash = "${git_commit_hash}"
-        String git_repo_url = "${git_repo_url}"
+        String git_commit_hash = read_string(stdout())
+    }
+
+    runtime {
+        docker: ""
+        cpu: 1
+        memory: "1 GB"
+        disks: "local-disk " + disk_size + " HDD"
+        preemptible: 0
     }
 }
+
+task repo_url {
+    # runtime commands
+    Int disk_size = 20
+
+    command {
+        echo /opt/software/git_repo_url
+    }
+
+    output {
+        String git_repo_url = read_string(stdout())
+    }
+
+    runtime {
+        docker: ""
+        cpu: 1
+        memory: "1 GB"
+        disks: "local-disk " + disk_size + " HDD"
+        preemptible: 0
+    }
+}
+
+#task scmatch_version {
+#    # runtime commands
+#    Int disk_size = 20
+#
+#    command {
+#        cp /opt/software/git_commit_hash ./git_commit_hash
+#        cp /opt/software/git_repo_url ./git_repo_url
+#    }
+#
+#    output {
+#        File git_commit_hash = "git_commit_hash"
+#        File git_repo_url = "git_repo_url"
+#    }
+#}

@@ -88,11 +88,13 @@ task cellranger_version {
     Int disk_size = 20
 
     command {
-        version=$(/opt/software/cellranger/cellranger | head -2 | tail -1)
+        /opt/software/cellranger/cellranger | head -2 | tail -1 > cellranger_version.txt;
+        echo cellranger_version.txt;
     }
 
     output {
-        String cellranger_version = "${version}"
+        #File version = "cellranger_version.txt"
+        String version = read_string(stdout())
     }
 
     runtime {
