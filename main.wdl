@@ -69,7 +69,7 @@ workflow SingleCell10xUnsupervisedWorkflow {
             diffexp_xlsx = convert_to_excel.excel_diffexp,
             raw_counts = count.zipped_cellranger_raw_csv,
             filtered_counts = count.zipped_cellranger_filtered_csv,
-            samplename = samplename
+            output_zip_name = output_zip_name
     }
 
     output {
@@ -90,13 +90,13 @@ task collate_outputs {
     File diffexp_xlsx
     File raw_counts
     File filtered_counts
-    String samplename
+    String output_zip_name
 
     # runtime commands
     Int disk_size = 100
     
     command {
-        zip ${samplename}.single_cell_10x.zip \
+        zip ${output_zip_name}.zip \
             ${cellranger_qc_report} \
             ${report} \
             ${plots} \
@@ -106,7 +106,7 @@ task collate_outputs {
     }
 
     output {
-        File zipped_output = "${samplename}.single_cell_10x.zip"
+        File zipped_output = "${output_zip_name}.single_cell_10x.zip"
     }
 
     runtime {
