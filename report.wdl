@@ -25,11 +25,12 @@ task generate_report {
             ${zipped_cellranger_analysis} \
             -C cellranger_data \
             --strip-components 1;
-        tar xzf ${zipped_cellranger_analysis} -C cellranger_data --strip-components 1;
 
         # Setup the scmatch output data
         mkdir scmatch_data;
-        tar xzf ${zipped_scmatch_output} -C scmatch_data --strip-components 1;
+        tar xzf ${zipped_scmatch_output} \
+            -C scmatch_data \
+            --strip-components 1;
 
         # Create the plots
         clusts=$(find ./cellranger_data/clustering/ -name "*.csv" | sort -V)

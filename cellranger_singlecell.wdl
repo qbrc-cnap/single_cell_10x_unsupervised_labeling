@@ -88,13 +88,46 @@ task cellranger_version {
     Int disk_size = 20
 
     command {
-        /opt/software/cellranger/cellranger | head -2 | tail -1 > cellranger_version.txt;
-        echo cellranger_version.txt;
+        /opt/software/cellranger/cellranger | head -2 | tail -1
     }
 
     output {
-        #File version = "cellranger_version.txt"
         String version = read_string(stdout())
+    }
+
+    runtime {
+        docker: ""
+        cpu: 2
+        memory: "2 GB"
+        disks: "local-disk " + disk_size + " HDD"
+        preemptible: 0
+    }
+}
+
+task cellranger_convert_to_excel {
+    File zipped_cellranger_analysis
+    String samplename
+
+    # runtime commands
+    Int disk_size = 40
+
+    command {
+        # Setup the cellranger data
+        mkdir cellranger_data;
+        tar xzf \
+            ${zipped_cellranger_analysis} \
+            -C cellranger_data \
+            --strip-components 1;
+        # convert to excel
+        # Pass as input a find of all CSVs in the diffexp directory
+        # Sort for natural sort, so sheets are in sensible order
+        python /opt/software/convert_to_excel.py \
+            -o ${samplename}.differential_expressions.xlsx \
+            $(find ./cellranger_data/diffexp -name "*.csv" | sort -V);
+    }
+
+    output {
+        File excel_diffexp = "${samplename}.differential_expressions.xlsx"
     }
 
     runtime {
