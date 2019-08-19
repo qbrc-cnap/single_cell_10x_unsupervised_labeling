@@ -6,11 +6,12 @@ from matplotlib.lines import Line2D
 
 def main():
     parser = argparse.ArgumentParser(description="Plotting 10x clusters.")
-    parser.add_argument("--scmatch", metavar="CSV",
+    parser.add_argument("--scmatch", metavar="CSV", required=True,
                         help="scMatch celltype CSV")
-    parser.add_argument("--tsne", metavar="CSV",
+    parser.add_argument("--tsne", metavar="CSV", required=True,
                         help="Cellranger tSNE output")
-    parser.add_argument("--clusters", metavar="CSV(s)", nargs="+",
+    parser.add_argument("--clusters", metavar="CSV(s)",
+                        nargs="+", required=True,
                         help="Cellranger clusters")
     args = parser.parse_args()
     colors = ["#e6194B", "#3cb44b", "#ffe119", "#4363d8", "#f58231", "#911eb4", 

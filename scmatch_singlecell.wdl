@@ -64,7 +64,7 @@ task commit_hash {
     Int disk_size = 20
 
     command {
-        echo /opt/software/git_commit_hash
+        cat /opt/software/scMatch/git_commit_hash
     }
 
     output {
@@ -85,7 +85,7 @@ task repo_url {
     Int disk_size = 20
 
     command {
-        echo /opt/software/git_repo_url
+        cat /opt/software/scMatch/git_repo_url
     }
 
     output {
@@ -100,18 +100,3 @@ task repo_url {
         preemptible: 0
     }
 }
-
-#task scmatch_version {
-#    # runtime commands
-#    Int disk_size = 20
-#
-#    command {
-#        cp /opt/software/git_commit_hash ./git_commit_hash
-#        cp /opt/software/git_repo_url ./git_repo_url
-#    }
-#
-#    output {
-#        File git_commit_hash = "git_commit_hash"
-#        File git_repo_url = "git_repo_url"
-#    }
-#}
