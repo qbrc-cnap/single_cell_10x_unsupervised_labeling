@@ -27,6 +27,12 @@ workflow SingleCell10xUnsupervisedWorkflow {
             samplename = samplename
     }
 
+    call cellranger_convert_to_excel as convert_to_excel {
+        input:
+            zipped_cellranger_analysis = count.zipped_cellranger_analysis,
+            samplename = samplename
+    }
+
     call cellranger_singlecell.cellranger_version as cellranger_version {}
 
     call scmatch_singlecell.scmatch_celltype as celltype {
@@ -42,7 +48,7 @@ workflow SingleCell10xUnsupervisedWorkflow {
 
     call scmatch_singlecell.repo_url as scmatch_repo_url {}
 
-    call reporting.generate_report {
+    call reporting.generate_report as report_gen {
         input:
             zipped_cellranger_analysis = count.zipped_cellranger_analysis,
             zipped_scmatch_output = celltype.zipped_scmatch_output,
@@ -55,8 +61,19 @@ workflow SingleCell10xUnsupervisedWorkflow {
             cellranger_version = cellranger_version.version
     }
 
-    output {
+    call collate_outputs {
+        input:
+            cellranger_qc_report = count.cellranger_qc_report,
+            report = report_gen.report,
+            plots = report_gen.zipped_plots,
+            diffexp_xlsx = convert_to_excel.excel_diffexp,
+            raw_counts = count.zipped_cellranger_raw_csv,
+            filtered_counts = count.zipped_cellranger_filtered_csv,
+            samplename = samplename
+    }
 
+    output {
+        collate_outputs.zipped_output
     }
 
     meta {
@@ -66,7 +83,37 @@ workflow SingleCell10xUnsupervisedWorkflow {
     }
 }
 
-#task collate_outputs {
-#    File cellranger_qc_report
-#    File report
-#}
+task collate_outputs {
+    File cellranger_qc_report
+    File report
+    File plots
+    File diffexp_xlsx
+    File raw_counts
+    File filtered_counts
+    String samplename
+
+    # runtime commands
+    Int disk_size = 100
+    
+    command {
+        zip ${samplename}.single_cell_10x.zip \
+            ${cellranger_qc_report} \
+            ${report} \
+            ${plots} \
+            ${diffexp_xlsx} \
+            ${raw_counts} \
+            ${filtered_counts}
+    }
+
+    output {
+        zipped_output = "${samplename}.single_cell_10x.zip}"
+    }
+
+    runtime {
+        docker: ""
+        cpu: 2
+        memory: "2 GB"
+        disks: "local-disk " + disk_size + " HDD"
+        preemptible: 0
+    }
+}
