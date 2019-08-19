@@ -27,13 +27,13 @@ workflow SingleCell10xUnsupervisedWorkflow {
             samplename = samplename
     }
 
-    call cellranger_convert_to_excel as convert_to_excel {
+    call cellranger_singlecell.cellranger_convert_to_excel as convert_to_excel {
         input:
             zipped_cellranger_analysis = count.zipped_cellranger_analysis,
             samplename = samplename
     }
 
-    call cellranger_singlecell.cellranger_version as cellranger_version {}
+    call cellranger_singlecell.cellranger_version as cellranger_get_version {}
 
     call scmatch_singlecell.scmatch_celltype as celltype {
         input:
@@ -58,12 +58,12 @@ workflow SingleCell10xUnsupervisedWorkflow {
             git_commit_hash = git_commit_hash,
             scmatch_hash = scmatch_commit_hash.git_commit_hash,
             scmatch_url = scmatch_repo_url.git_repo_url,
-            cellranger_version = cellranger_version.version
+            cellranger_version = cellranger_get_version.version
     }
 
     call collate_outputs {
         input:
-            cellranger_qc_report = count.cellranger_qc_report,
+            cellranger_qc_report = count.cellranger_qc_summary,
             report = report_gen.report,
             plots = report_gen.zipped_plots,
             diffexp_xlsx = convert_to_excel.excel_diffexp,
@@ -106,7 +106,7 @@ task collate_outputs {
     }
 
     output {
-        zipped_output = "${samplename}.single_cell_10x.zip}"
+        File zipped_output = "${samplename}.single_cell_10x.zip"
     }
 
     runtime {
