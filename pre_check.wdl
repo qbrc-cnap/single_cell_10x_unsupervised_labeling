@@ -3,7 +3,6 @@ workflow  SingleCell10xUnsupervisedWorkflow {
     File zipped_cellranger_reference
     File zipped_scmatch_reference
 
-    String num_expected_cells
     String samplename
     String species
 

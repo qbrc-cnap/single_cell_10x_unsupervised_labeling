@@ -7,7 +7,6 @@ workflow CellrangerSingleCellMockWorkflow {
         input:
             zipped_fastqs = zipped_fastqs,
             zipped_reference = zipped_reference,
-            num_expected_cells = num_expected_cells,
             samplename = samplename
     }
     
