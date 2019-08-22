@@ -1,5 +1,25 @@
 workflow ReportSingleCell10xMockWorkflow {
+    File zipped_cellranger_analysis
+    File zipped_scmatch_output
+    String samplename
+    String genome
+    String git_repo_url
+    String git_commit_hash
+    String scmatch_hash
+    String scmatch_url
+    String cellranger_version
 
+    call generate_report {
+        input:
+            zipped_cellranger_analysis = zipped_cellranger_analysis,
+            zipped_scmatch_output = zipped_scmatch_output,
+            samplename = samplename,
+            genome = genome,
+            git_repo_url = git_repo_url,
+            git_commit_hash = git_commit_hash,
+            scmatch_hash = scmatch_hash,
+            scmatch_url = scmatch_url,
+            cellranger_version = cellranger_version
 }
 
 task generate_report {
