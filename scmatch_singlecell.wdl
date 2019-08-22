@@ -51,7 +51,7 @@ task scmatch_celltype {
     }
 
     runtime {
-        docker: ""
+        docker: "hsphqbrc/singlecell_10_unsupervised_labeling:1.0"
         cpu: 8
         memory: "6 GB"
         disks: "local-disk " + disk_size + " HDD"
@@ -72,7 +72,7 @@ task commit_hash {
     }
 
     runtime {
-        docker: ""
+        docker: "hsphqbrc/singlecell_10_unsupervised_labeling:1.0"
         cpu: 1
         memory: "1 GB"
         disks: "local-disk " + disk_size + " HDD"
@@ -93,7 +93,7 @@ task repo_url {
     }
 
     runtime {
-        docker: ""
+        docker: "hsphqbrc/singlecell_10_unsupervised_labeling:1.0"
         cpu: 1
         memory: "1 GB"
         disks: "local-disk " + disk_size + " HDD"

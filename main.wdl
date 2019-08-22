@@ -110,7 +110,7 @@ task collate_outputs {
     }
 
     runtime {
-        docker: ""
+        docker: "hsphqbrc/singlecell_10_unsupervised_labeling:1.0"
         cpu: 2
         memory: "2 GB"
         disks: "local-disk " + disk_size + " HDD"
