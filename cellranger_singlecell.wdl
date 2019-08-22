@@ -1,7 +1,6 @@
 workflow CellrangerSingleCellMockWorkflow {
     File zipped_fastqs
     File zipped_reference
-    String num_expected_cells
     String samplename
 
     call cellranger_count {
@@ -18,7 +17,6 @@ workflow CellrangerSingleCellMockWorkflow {
 task cellranger_count {
     File zipped_fastqs
     File zipped_reference
-    String num_expected_cells
     String samplename
 
     # runtime commands
@@ -32,8 +30,7 @@ task cellranger_count {
         /opt/software/cellranger/cellranger count \
             --id=${samplename} \
             --transcriptome=./ref \
-            --fastqs=./fastqs \
-            --expect-cells=${num_expected_cells};
+            --fastqs=./fastqs;
 
         # Moved web summary to pwd for simpler / safer export
         mv ./${samplename}/outs/web_summary.html .;

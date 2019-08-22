@@ -5,7 +5,6 @@
   "SingleCell10xUnsupervisedWorkflow.zipped_cellranger_reference": "File",
   "SingleCell10xUnsupervisedWorkflow.zipped_fastqs": "File",
   "SingleCell10xUnsupervisedWorkflow.git_repo_url": "String",
-  "SingleCell10xUnsupervisedWorkflow.num_expected_cells": "String",
   "SingleCell10xUnsupervisedWorkflow.output_zip_name": "String",
   "SingleCell10xUnsupervisedWorkflow.git_commit_hash": "String",
   "SingleCell10xUnsupervisedWorkflow.species": "String"

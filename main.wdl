@@ -9,7 +9,6 @@ workflow SingleCell10xUnsupervisedWorkflow {
     File zipped_cellranger_reference
     File zipped_scmatch_reference
 
-    String num_expected_cells
     String samplename
     String species
 
@@ -23,7 +22,6 @@ workflow SingleCell10xUnsupervisedWorkflow {
         input:
             zipped_fastqs = zipped_fastqs,
             zipped_reference = zipped_cellranger_reference,
-            num_expected_cells = num_expected_cells,
             samplename = samplename
     }
 
