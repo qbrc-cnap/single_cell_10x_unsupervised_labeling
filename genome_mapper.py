@@ -18,7 +18,7 @@ def map_inputs(user, all_data, data_name, id_list):
     j = json.load(open(resource_file))
 
     d = {}
-    d[id_list[0]] = genome_choice
+    d[id_list[0]] = j[genome_choice]['genome']
     d[id_list[1]] = j[genome_choice]['cellranger_reference']
     d[id_list[2]] = j[genome_choice]['scmatch_reference']
     return d

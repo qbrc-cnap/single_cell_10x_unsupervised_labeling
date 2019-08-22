@@ -16,9 +16,10 @@
         },
 		{
 			"target": {
-                "target_ids": ["SingleCell10xUnsupervisedWorkflow.zipped_cellranger_reference",
-                    "SingleCell10xUnsupervisedWorkflow.zipped_scmatch_reference",
-                    "SingleCell10xUnsupervisedWorkflow.genome"
+                "target_ids": [
+					"SingleCell10xUnsupervisedWorkflow.genome",
+					"SingleCell10xUnsupervisedWorkflow.zipped_cellranger_reference",
+                    "SingleCell10xUnsupervisedWorkflow.zipped_scmatch_reference"
                     ],
 				"name": "genome_choice",
 				"handler": "genome_mapper.py"
@@ -40,14 +41,6 @@
 			}
 		},
 		{
-			"target":"SingleCell10xUnsupervisedWorkflow.output_zip_name",
-			"display_element": {
-				"type": "text",
-				"label": "Output zip-archive name:",
-				"description": "Name the output file.  Result will be a \"zip\" archive.  If you enter \"my_output\", then the results will be \"my_output.zip\"."
-			}
-        },
-        {
 			"target":"SingleCell10xUnsupervisedWorkflow.samplename",
 			"display_element": {
 				"type": "text",
@@ -55,6 +48,14 @@
 				"description": "Name the sample. The name will be propogated through the pipeline and to your output."
 			}
 		},
+		{
+			"target":"SingleCell10xUnsupervisedWorkflow.output_zip_name",
+			"display_element": {
+				"type": "text",
+				"label": "Output zip-archive name:",
+				"description": "Name the output file.  Result will be a \"zip\" archive.  If you enter \"my_output\", then the results will be \"my_output.zip\"."
+			}
+        },
 		{
 			"target": "SingleCell10xUnsupervisedWorkflow.git_repo_url",
 			"display_element": {
