@@ -1,5 +1,6 @@
 From debian:stretch
 LABEL maintainer="ddeconti@hsph.harvard.edu"
+#hsphqbrc/singlecell_10_unsupervised_labeling
 
 RUN apt-get update && \
   apt-get install -y build-essential \
@@ -25,6 +26,17 @@ ADD convert_to_excel.py /opt/software
 ADD generate_report.py /opt/software
 ADD perform_precheck.py /opt/software
 ADD plotting.py /opt/software
+
+# Install libStatGen and fastQValidator:
+RUN cd /opt/software && \
+  git clone https://github.com/statgen/libStatGen.git && \
+  cd libStatGen && \
+  make && \
+  cd .. && \
+  git clone https://github.com/statgen/fastQValidator.git && \
+  cd fastQValidator && \
+  make && \
+  make install
 
 # Install some Python3 libraries:
 ADD requirements.txt /opt/software/

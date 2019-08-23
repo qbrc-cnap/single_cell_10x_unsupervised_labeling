@@ -108,18 +108,22 @@ def main():
                         help="FASTQ sequencing files")
     args = parser.parse_args()
     err_list = []
+    #print("check_mathed_pairs")
     if not check_matched_pairs(args.indices, args.fastqs):
         e = "There was an issue with matching your index FASTQs to your sequencing FASTQs."
         err_list.append(e)
-
+    #print("looping through fastq_filpaths")
     for fastq_filepath in args.indices + args.fastqs:
         # check that fastq in gzip:
+        #print("check_gzip_format")
         err_list.extend(check_gzip_format(fastq_filepath))
 
         # check the fastq format
+        #print("check_fastq_format")
         err_list.extend(check_fastq_format(fastq_filepath))
 
         # check that read lengths are consistent with Illumina:
+        #print("catch_very_long_reads")
         err_list.extend(catch_very_long_reads(fastq_filepath))
     
     if len(err_list) > 0:
