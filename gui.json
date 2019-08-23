@@ -2,7 +2,7 @@
 	"input_elements": [
 		{
 			"target": {
-				"target_ids": ["SingleCell10xUnsupervisedWorkflow.zipped_fastqs",],
+				"target_ids": ["SingleCell10xUnsupervisedWorkflow.zipped_fastqs"],
 				"name": "input_files",
 				"handler": "input_mapping.py"
 			},
