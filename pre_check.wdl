@@ -30,7 +30,7 @@ task assert_valid_fastq {
     }
     
     runtime {
-        docker: "hsphqbrc/singlecell_10_unsupervised_labeling:1.0"
+        docker: "docker.io/hsphqbrc/singlecell_10_unsupervised_labeling:1.0"
         cpu: 4
         memory: "50 G"
         disks: "local-disk " + disk_size + " HDD"

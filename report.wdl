@@ -87,7 +87,7 @@ task generate_report {
     }
 
     runtime {
-        docker: "hsphqbrc/singlecell_10_unsupervised_labeling:1.0"
+        docker: "docker.io/hsphqbrc/singlecell_10_unsupervised_labeling:1.0"
         cpu: 2
         memory: "4 G"
         disks: "local-disk " + disk_size + " HDD"
