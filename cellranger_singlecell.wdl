@@ -71,7 +71,7 @@ task cellranger_count {
     }
 
     runtime {
-        docker: ""
+        docker: "hsphqbrc/cellranger:3.1.0"
         cpu: 32
         memory: "100 GB"
         disks: "local-disk " + disk_size + " HDD"
@@ -127,7 +127,7 @@ task cellranger_convert_to_excel {
     }
 
     runtime {
-        docker: "hsphqbrc/cellranger:3.1.0"
+        docker: "hsphqbrc/singlecell_10_unsupervised_labeling:1.0"
         cpu: 2
         memory: "2 GB"
         disks: "local-disk " + disk_size + " HDD"
