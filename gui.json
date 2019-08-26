@@ -19,7 +19,8 @@
                 "target_ids": [
 					"SingleCell10xUnsupervisedWorkflow.genome",
 					"SingleCell10xUnsupervisedWorkflow.zipped_cellranger_reference",
-                    "SingleCell10xUnsupervisedWorkflow.zipped_scmatch_reference"
+					"SingleCell10xUnsupervisedWorkflow.zipped_scmatch_reference",
+					"SingleCell10xUnsupervisedWorkflow.species"
                     ],
 				"name": "genome_choice",
 				"handler": "genome_mapper.py"

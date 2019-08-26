@@ -21,4 +21,5 @@ def map_inputs(user, all_data, data_name, id_list):
     d[id_list[0]] = j[genome_choice]['genome']
     d[id_list[1]] = j[genome_choice]['cellranger_reference']
     d[id_list[2]] = j[genome_choice]['scmatch_reference']
+    d[id_list[3]] = j[genome_choice]['species']
     return d
