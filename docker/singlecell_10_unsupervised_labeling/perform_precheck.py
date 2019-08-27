@@ -95,11 +95,14 @@ def catch_very_long_reads(f, N=100, L=300):
     # ANY in our sample, save an error message and exit the loop.
     # Thus, at most one error per fastq.
     i = 1
-    while i < len(lines):
-        if len(lines[i]) > L:
-            return ['Fastq file (%s) had a read of length %d, '
-                'which is too long for a typical Illumina read.  Failing file.' % (f, len(lines[i]))]
-        i += 4
+    try:
+        while i < len(lines):
+            if len(lines[i]) > L:
+                return ['Fastq file (%s) had a read of length %d, '
+                    'which is too long for a typical Illumina read.  Failing file.' % (f, len(lines[i]))]
+            i += 4
+    except TypeError as e:
+        return ''.join(["TypeError: ", e, "in catch_very_long_reads iterating while lines\n"])
     return []
 
 
@@ -122,18 +125,23 @@ def main():
             e = "There was an issue with matching your index FASTQs to your sequencing FASTQs."
             err_list.append(e)
     #print("looping through fastq_filpaths")
-    for fastq_filepath in args.indices + args.fastqs:
-        # check that fastq in gzip:
-        #print("check_gzip_format")
-        err_list.extend(check_gzip_format(fastq_filepath))
+    try:
+        for fastq_filepath in args.indices + args.fastqs:
+            # check that fastq in gzip:
+            #print("check_gzip_format")
+            err_list.extend(check_gzip_format(fastq_filepath))
 
-        # check the fastq format
-        #print("check_fastq_format")
-        err_list.extend(check_fastq_format(fastq_filepath))
+            # check the fastq format
+            #print("check_fastq_format")
+            err_list.extend(check_fastq_format(fastq_filepath))
 
-        # check that read lengths are consistent with Illumina:
-        #print("catch_very_long_reads")
-        err_list.extend(catch_very_long_reads(fastq_filepath))
+            # check that read lengths are consistent with Illumina:
+            #print("catch_very_long_reads")
+            err_list.extend(catch_very_long_reads(fastq_filepath))
+    except TypeError as e:
+        e = ''.join(["TypeError: ", e, "in main iterating through args.indices + args.fastqs.\n"])
+        err_list.append(e)
+
     
     if len(err_list) > 0:
         sys.stderr.write('#####'.join(err_list)) # the 5-hash delimiter since some stderr messages can be multiline
