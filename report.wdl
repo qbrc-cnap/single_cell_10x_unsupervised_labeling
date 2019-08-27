@@ -20,6 +20,7 @@ workflow ReportSingleCell10xMockWorkflow {
             scmatch_hash = scmatch_hash,
             scmatch_url = scmatch_url,
             cellranger_version = cellranger_version
+    }
 }
 
 task generate_report {
