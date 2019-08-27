@@ -75,6 +75,7 @@ task cellranger_count {
         cpu: 32
         memory: "100 GB"
         disks: "local-disk " + disk_size + " HDD"
+        bootDiskSizeGb: 20
         preemptible: 0
     }
 }
@@ -96,6 +97,7 @@ task cellranger_version {
         cpu: 2
         memory: "2 GB"
         disks: "local-disk " + disk_size + " HDD"
+        bootDiskSizeGb: 20
         preemptible: 0
     }
 }
