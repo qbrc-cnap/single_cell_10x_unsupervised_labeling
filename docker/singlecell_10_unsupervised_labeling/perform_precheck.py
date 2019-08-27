@@ -45,11 +45,16 @@ def run_cmd(cmd, return_stderr=False, set_timeout=False):
 def check_matched_pairs(indices, fastqs):
     '''Checks that there is a matching FASTQ with indices.'''
     suffix = ".fastq.gz"
-    indices_base = [re.sub(suffix, "", i) for i in indices]
-    indices_base = [re.sub("_I", "_", i) for i in indices_base]
-    fastqs_base = [re.sub(suffix, "", f) for f in fastqs]
-    fastqs_base = [re.sub("_R", "_", f) for f in fastqs_base]
-    return len(set(indices_base).difference(set(fastqs_base))) == 0
+    e = None
+    try:
+        indices_base = [re.sub(suffix, "", i) for i in indices]
+        indices_base = [re.sub("_I", "_", i) for i in indices_base]
+        fastqs_base = [re.sub(suffix, "", f) for f in fastqs]
+        fastqs_base = [re.sub("_R", "_", f) for f in fastqs_base]
+    except TypeError as e:
+        #sys.stderr.write(''.join(["TypeError: ", e, "in check_matched_pairs\n"]))
+        e = ''.join(["TypeError: ", e, "in check_matched_pairs\n"])
+    return (e, len(set(indices_base).difference(set(fastqs_base))) == 0)
 
 
 def check_fastq_format(f):
@@ -109,9 +114,13 @@ def main():
     args = parser.parse_args()
     err_list = []
     #print("check_mathed_pairs")
-    if not check_matched_pairs(args.indices, args.fastqs):
-        e = "There was an issue with matching your index FASTQs to your sequencing FASTQs."
+    e, match_bool = check_matched_pairs(args.indices, args.fastqs)
+    if e:
         err_list.append(e)
+    else:
+        if not match_bool:
+            e = "There was an issue with matching your index FASTQs to your sequencing FASTQs."
+            err_list.append(e)
     #print("looping through fastq_filpaths")
     for fastq_filepath in args.indices + args.fastqs:
         # check that fastq in gzip:
