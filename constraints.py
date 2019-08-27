@@ -14,7 +14,7 @@ def check_constraints(implemented_constraint, inputs_json_path):
     # load the inputs json:
     j = json.load(open(inputs_json_path))
     try:
-        fastq_list = j['SingleCell10xUnsupervisedWorkflow.zipped_fastqs']
+        fastq = j['SingleCell10xUnsupervisedWorkflow.zipped_fastqs']
         
     except KeyError:
         # The chances of reaching this are very unlikely, but we are being extra careful here
@@ -27,10 +27,11 @@ def check_constraints(implemented_constraint, inputs_json_path):
     constraint_value = implemented_constraint.analysisunitconstraint.value
 
     # finally we can check if the constraints are satisfied:
-    constraint_satisfied = len(fastq_list) <= (constraint_value * 2)
+    #constraint_satisfied = len(fastq_list) <= (constraint_value * 2)
 
-    message = ''
-    if not constraint_satisfied:
-        message = '%d paired fastq files were submitted for analysis, but only a maximum of %d are permitted.' % (len(fastq_list), constraint_value * 2)
+    #message = ''
+    #if not constraint_satisfied:
+    #    message = '%d paired fastq files were submitted for analysis, but only a maximum of %d are permitted.' % (len(fastq_list), constraint_value * 2)
 
-    return (constraint_satisfied, message)
+    #return (constraint_satisfied, message)
+    return (True, "")
