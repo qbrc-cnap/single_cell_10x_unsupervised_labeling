@@ -39,9 +39,9 @@ def map_inputs(user, all_data, data_name, id_list):
     
     # now we have a list of files that had the correct naming scheme.
 
-    input_samples = [os.path.basename(x)[ : -len(input_suffix)]
-                     for x in input_path_list]
+    #input_samples = [os.path.basename(x)[ : -len(input_suffix)]
+    #                 for x in input_path_list]
     #sample_dict = dict(zip(input_samples, input_path_list))
-    return {id_list[0] : input_path_list}
+    return {id_list[0] : input_path_list[0]}
     # Unsure if I need second key-pair to be returned
     #return {id_list[0]:final_r1_list, id_list[1]:final_r2_list}
