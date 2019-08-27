@@ -25,23 +25,27 @@ def map_inputs(user, all_data, data_name, id_list):
     '''
     unmapped_data = all_data[data_name]
     input_suffix = '.tar.gz'
-    input_path_list = []
     # Pull all the uploaded files that end with above suffix.
-    for pk in unmapped_data:
-        r = Resource.objects.get(pk=pk)
-        if (r.owner == user) or (user.is_staff):
-            if r.path.endswith(input_suffix):
-                input_path_list.append(r.path)
-            else:
-                print('Skipping %s' % r.path)
+    #for pk in unmapped_data:
+    pk = unmapped_data # as it is no longer an integer
+    r = Resource.objects.get(pk=pk)
+    input_path = None
+    if (r.owner == user) or (user.is_staff):
+        if r.path.endswith(input_suffix):
+            input_path = r.path
         else:
-            raise Exception('The user %s is not the owner of Resource with primary key %s.' % (user, pk))
+            print('Skipping %s' % r.path)
+    else:
+        raise Exception('The user %s is not the owner of Resource with primary key %s.' % (user, pk))
     
     # now we have a list of files that had the correct naming scheme.
 
     #input_samples = [os.path.basename(x)[ : -len(input_suffix)]
     #                 for x in input_path_list]
     #sample_dict = dict(zip(input_samples, input_path_list))
-    return {id_list[0] : input_path_list[0]}
+    if not input_path:
+        raise Exception('The file %s does not have an appropriate suffix, but somehow bypassed gui.json regex' % r)
+    else:
+        return {id_list[0] : input_path}
     # Unsure if I need second key-pair to be returned
     #return {id_list[0]:final_r1_list, id_list[1]:final_r2_list}
