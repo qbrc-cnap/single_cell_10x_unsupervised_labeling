@@ -37,7 +37,8 @@ task cellranger_count {
         # Package analysis directory for export.
         tar czf \
             ${samplename}_cellranger_analysis.tar.gz \
-            --directory=./${samplename}/outs/analysis;
+            --directory=./${samplename}/outs/ \
+            analysis;
         
         # Package raw and filtered matrices directories for export
         # Also moved the hdf5 for separate export from CSVs
@@ -45,12 +46,14 @@ task cellranger_count {
         mv ./${samplename}/outs/raw_feature_bc_matrix.h5 .;
         tar czf \
             ${samplename}_cellranger_raw_csv.tar.gz \
-            --directory=./${samplename}/outs/raw_feature_bc_matrix;
+            --directory=./${samplename}/outs/ \
+            raw_feature_bc_matrix;
         
         mv ./${samplename}/outs/filtered_feature_bc_matrix.h5 .;
         tar czf \
             ${samplename}_cellranger_filtered_csv.tar.gz \
-            --directory=./${samplename}/outs/filtered_feature_bc_matrix;
+            --directory=./${samplename}/outs/ \
+            filtered_feature_bc_matrix;
         
         # Move BAM, BAM index, and cloupe file to pwd for simpler WDL output
         mv ./${samplename}/outs/possorted_genome_bam.bam .;
