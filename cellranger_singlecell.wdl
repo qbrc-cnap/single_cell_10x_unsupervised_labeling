@@ -119,7 +119,7 @@ task cellranger_convert_to_excel {
         # convert to excel
         # Pass as input a find of all CSVs in the diffexp directory
         # Sort for natural sort, so sheets are in sensible order
-        python /opt/software/convert_to_excel.py \
+        python3 /opt/software/convert_to_excel.py \
             -o ${samplename}.differential_expressions.xlsx \
             $(find ./cellranger_data/diffexp -name "*.csv" | sort -V);
     }
