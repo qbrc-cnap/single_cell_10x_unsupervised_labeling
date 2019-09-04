@@ -14,6 +14,8 @@ RUN apt-get update && \
     zip \
     python3-dev \
     python3-pip \
+    python2.7-dev \
+    python-pip \
     default-jre \
     r-base \
     pandoc \
@@ -40,7 +42,9 @@ RUN cd /opt/software && \
 
 # Install some Python3 libraries:
 ADD requirements.txt /opt/software/
+ADD requirements27.txt /opt/software/
 RUN pip3 install -r /opt/software/requirements.txt
+RUN pip install -r /opt/software/requirements27.txt
 
 # Install Jinja2 for templating.  Likely installed with other python packages, but just to be sure:
 RUN pip3 install Jinja2
