@@ -42,7 +42,7 @@ task scmatch_celltype {
             --keepZeros n;
         tar czf \
             ${samplename}_scMatch.tar.gz \
-            --directory=./data/outs/filtered_feature_bc_matrix/ \
+            --directory=./filtered_feature_bc_matrix/ \
             annotation_result_keep_expressed_genes;
     }
 
