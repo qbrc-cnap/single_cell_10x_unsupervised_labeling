@@ -32,6 +32,7 @@ task scmatch_celltype {
         tar xzf ${zipped_cellranger_filtered_csv} \
             -C filtered_feature_bc_matrix \
             --strip-components 1;
+        gzip -d ./filtered_feature_bc_matrix/*.gz;
         python /opt/software/scMatch/scMatch.py \
             --coreNum 8 \
             --refType ${species} \
