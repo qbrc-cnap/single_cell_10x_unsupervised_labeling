@@ -25,7 +25,7 @@ task scmatch_celltype {
     # runtime commands
     Int disk_size = 500
 
-    command {
+    command <<<
         mkdir ref;
         tar xzf ${zipped_reference} -C ref --strip-components 1;
         mkdir filtered_feature_bc_matrix;
@@ -46,7 +46,7 @@ task scmatch_celltype {
             ${samplename}_scMatch.tar.gz \
             --directory=./filtered_feature_bc_matrix/ \
             annotation_result_keep_expressed_genes;
-    }
+    >>>
 
     output {
         File zipped_scmatch_output = "${samplename}_scMatch.tar.gz"
