@@ -35,7 +35,7 @@ task scmatch_celltype {
         #gzip -d ./filtered_feature_bc_matrix/*.gz;
         find ./filtered_feature_bc_matrix -name "*.gz" -exec gzip -d {} \;
         python /opt/software/scMatch/scMatch.py \
-            --coreNum 8 \
+            --coreNum 4 \
             --refType ${species} \
             --testType ${species} \
             --refDS ./ref \
@@ -55,7 +55,7 @@ task scmatch_celltype {
     runtime {
         docker: "docker.io/hsphqbrc/singlecell_10_unsupervised_labeling:1.0"
         cpu: 8
-        memory: "6 GB"
+        memory: "24 GB"
         disks: "local-disk " + disk_size + " HDD"
         preemptible: 0
     }
