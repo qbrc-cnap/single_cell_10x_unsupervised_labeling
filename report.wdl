@@ -69,7 +69,7 @@ task generate_report {
             --kmeans $kmeansclusts \
             --genome "${genome}" \
             --scmatchhash "${scmatch_hash}" \
-            --scmatch_url "${scmatch_url}" \
+            --scmatchurl "${scmatch_url}" \
             --cellranger "${cellranger_version}" \
             --githash "${git_commit_hash}" \
             --gitrepo "${git_repo_url}" \
