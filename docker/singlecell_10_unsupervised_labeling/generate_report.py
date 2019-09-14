@@ -84,10 +84,10 @@ def parse_input():
                         help="Kmeans clustering graphs to cell typing png(s)")
     parser.add_argument('-o', required=True, dest=OUTPUT,
                         help="Name of output report file")
-    parser.add_argument('-i', required=True, dest=INPUT,
-                        help="Name of input FASTQ tarbell")
-    parser.add_argument('-s', required=True, dest=SAMPLENAME,
-                        help="sample name")
+    #parser.add_argument('-i', required=True, dest=INPUT,
+    #                    help="Name of input FASTQ tarbell")
+    #parser.add_argument('-s', required=True, dest=SAMPLENAME,
+    #                    help="sample name")
     parser.add_argument('--genome', required=True, dest=GENOME,
                         help="genome name")
     parser.add_argument('--scmatchhash', required=True, dest=SCMATCH_HASH,
@@ -142,17 +142,17 @@ if __name__ == '__main__':
     }
     #kmeans_dict = {"kmeans_clust" : arg_dict[KMEANS]}
     kmeans_list = arg_dict[KMEANS]
-    name_dict = {
-        #"output_report_filename" : arg_dict[OUTPUT],
-        "input_fastq_filename" : arg_dict[INPUT],
-        "sample_name" : arg_dict[SAMPLENAME]
-    }
+    #name_dict = {
+    #    #"output_report_filename" : arg_dict[OUTPUT],
+    #    "input_fastq_filename" : arg_dict[INPUT],
+    #    "sample_name" : arg_dict[SAMPLENAME]
+    #}
     # make the context dictionary
     context = {}
     context.update(versions_dict)
     context.update(graph_dict)
     #context.update(kmeans_dict)
-    context.update(name_dict)
+    #context.update(name_dict)
     #context.update(arg_dict)
     #context.update(j)
 
