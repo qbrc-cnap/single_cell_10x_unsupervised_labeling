@@ -98,11 +98,11 @@ The genome version used for alignment was {{genome}}.
 
 [1] https://github.com/10XGenomics/cellranger
 
-[2] Dobin A, Davis CA, Schlesinger F, et al. STAR: ultrafast universal RNA-seq aligner. Bioinformatics. 2013;29(1):15–21. doi:10.1093/bioinformatics/bts635
+[2] Dobin A, Davis CA, Schlesinger F, et al. STAR: ultrafast universal RNA-seq aligner. Bioinformatics. 2013;29(1):15-21. doi:10.1093/bioinformatics/bts635
 
-[3] van der Maaten, L.J.P.; Hinton, G.E. (Nov 2008). "Visualizing Data Using t-SNE" (PDF). Journal of Machine Learning Research. 9: 2579–2605.
+[3] van der Maaten, L.J.P.; Hinton, G.E. (Nov 2008). "Visualizing Data Using t-SNE" (PDF). Journal of Machine Learning Research. 9: 2579-2605.
 
-[4] Lloyd, Stuart P. (1957). "Least square quantization in PCM". Bell Telephone Laboratories Paper. Published in journal much later: Lloyd, Stuart P. (1982). "Least squares quantization in PCM" (PDF). IEEE Transactions on Information Theory. 28 (2): 129–137. CiteSeerX 10.1.1.131.1338. doi:10.1109/TIT.1982.1056489. Retrieved 2009-04-15.
+[4] Lloyd, Stuart P. (1957). "Least square quantization in PCM". Bell Telephone Laboratories Paper. Published in journal much later: Lloyd, Stuart P. (1982). "Least squares quantization in PCM" (PDF). IEEE Transactions on Information Theory. 28 (2): 129-137. CiteSeerX 10.1.1.131.1338. doi:10.1109/TIT.1982.1056489. Retrieved 2009-04-15.
 
 [5] https://support.10xgenomics.com/single-cell-gene-expression/software/pipelines/latest/algorithms/overview
 
@@ -110,8 +110,8 @@ The genome version used for alignment was {{genome}}.
 
 [7] Rui Hou, Elena Denisenko, Alistair R R Forrest, scMatch: a single-cell gene expression profile annotation tool using reference datasets, Bioinformatics, , btz292, https://doi.org/10.1093/bioinformatics/btz292
 
-[8] Arner E. et al.  (2015) Transcribed enhancers lead waves of coordinated transcription in transitioning mammalian cells. Science , 347, 1010–1014.
+[8] Arner E. et al.  (2015) Transcribed enhancers lead waves of coordinated transcription in transitioning mammalian cells. Science , 347, 1010-1014.
 
-[9]Forrest A.R. et al.  (2014) A promoter-level mammalian expression atlas. Nature, 507, 462–470.
+[9]Forrest A.R. et al.  (2014) A promoter-level mammalian expression atlas. Nature, 507, 462-470.
 
-[10] Lizio M. et al.  (2017) Update of the FANTOM web resource: high resolution transcriptome of diverse cell types in mammals. Nucleic Acids Res., 45, D737–D743.
+[10] Lizio M. et al.  (2017) Update of the FANTOM web resource: high resolution transcriptome of diverse cell types in mammals. Nucleic Acids Res., 45, D737-D743.
