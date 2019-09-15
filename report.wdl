@@ -77,13 +77,13 @@ task generate_report {
             -o completed_report.md;
         pandoc \
             -H /opt/report/report.css \
-            -s ${samplename} \
-            -o analysis_report.html;
+            -s completed_report.md \
+            -o ${samplename}_analysis_report.html;
         zip cluster_plots.zip *.png;
     }
 
     output {
-        File report = "analysis_report.html"
+        File report = "${samplename}_analysis_report.html"
         File zipped_plots = "cluster_plots.zip"
     }
 
