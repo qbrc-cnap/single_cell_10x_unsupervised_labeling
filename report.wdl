@@ -55,7 +55,7 @@ task generate_report {
 
         # Create the plots
         clusts=$(find ./cellranger_data/clustering/ -name "*.csv" | sort -V)
-        python /opt/software/plotting.py \
+        python3 /opt/software/plotting.py \
             --scmatch ./scmatch_data/human_Spearman_top_ann.csv \
             --tsne ./cellranger_data/tsne/2_components/projection.csv \
             --clusters $clusts;
@@ -63,7 +63,7 @@ task generate_report {
         # Generate the report
         kmeansclusts=$(ls *kmeans*_cluster.png | sort -V);
         #cellrangerversion=$(echo ${cellranger_version})
-        python /opt/software/generate_report.py \
+        python3 /opt/software/generate_report.py \
             --typing 1_celltype_to_tsne.png \
             --graph 2_celltype_to_knn_lmo_cluster.png \
             --kmeans $kmeansclusts \
