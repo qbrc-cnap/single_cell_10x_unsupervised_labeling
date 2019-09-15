@@ -19,7 +19,8 @@ RUN apt-get update && \
     default-jre \
     r-base \
     pandoc \
-    git
+    git \
+    locales
 
 # Install all software into /opt/software:
 RUN mkdir -p /opt/software 
@@ -60,3 +61,6 @@ RUN echo "https://github.com/asrhou/scMatch.git" > /opt/software/scMatch/git_rep
 RUN mkdir -p /opt/report
 ADD report.md /opt/report/
 ADD report.css /opt/report/
+
+# Adding language UTF settings
+ENV LANG=en_US.UTF-8  LANGUAGE=en_US:en LC_ALL=en_US.UTF-8
