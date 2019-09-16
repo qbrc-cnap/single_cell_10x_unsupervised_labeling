@@ -94,13 +94,19 @@ task collate_outputs {
     Int disk_size = 100
     
     command {
-        zip ${output_zip_name}.zip \
-            ${cellranger_qc_report} \
-            ${report} \
-            ${plots} \
-            ${diffexp_xlsx} \
-            ${raw_counts} \
-            ${filtered_counts}
+        mkdir analysis_results;
+        mkdir analysis_results/analysis_report;
+        mkdir analysis_results/differential_expression;
+        mkdir analysis_results/qc_report;
+        mkdir analysis_results/counts;
+        
+        cp ${cellranger_qc_report} analysis_results/qc_report;
+        cp ${report} analysis_results/analysis_report;
+        unzip ${plots} -d analysis_results/analysis_report;
+        cp ${diffexp_xlsx} analysis_results/differential_expression;
+        cp ${raw_counts} ${filtered_counts} analysis_results/counts;
+
+        zip -r ${output_zip_name}.single_cell_10x.zip analysis_results;
     }
 
     output {
