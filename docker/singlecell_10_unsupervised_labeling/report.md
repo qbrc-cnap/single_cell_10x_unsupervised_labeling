@@ -81,9 +81,13 @@ The genome version used for alignment was {{genome}}.
 ### Cell type matching
 
 ### Comparison of cell type matches to unsupervised Clusters
+
 ![]( {{celltype_clust}} )
+
 ##### Graph based clustering
+
 ![]( {{graph_clust}} )
+
 ##### K-means clustering
 
 {% for obj in kmeans_clust %}
