@@ -10,5 +10,11 @@
         "scmatch_reference": "gs://cnap-hsph-resources/grch38.95/homo_sapiens_FANTOM5.tar.gz",
         "genome": "GRCh37 (hg19)",
         "species": "human"
+    },
+    "Ensembl Mus musculus GRCm38":{
+        "cellranger_reference": "gs://cnap-hsph-resources/grcm38.95/refdata-cellranger-mm10-3.0.0.tar.gz",
+        "scmatch_reference": "gs://cnap-hsph-resources/grch38.95/homo_sapiens_FANTOM5.tar.gz",
+        "genome": "GRCm38",
+        "species": "mouse"
     }
 }
