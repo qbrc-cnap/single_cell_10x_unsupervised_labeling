@@ -37,6 +37,10 @@
 					{
 						"value": "Ensembl Homo sapiens GRCh37",
 						"display": "Ensembl Homo sapiens GRCh37 (hg19)"
+					},
+					{
+						"value": "Ensembl Mus musculus GRCm38",
+						"display": "Ensembl Mus musculus GRCm38"
 					}
 				]
 			}
