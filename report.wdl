@@ -29,6 +29,7 @@ task generate_report {
     
     String samplename
     String genome
+    String species
 
     String git_repo_url
     String git_commit_hash
@@ -56,7 +57,7 @@ task generate_report {
         # Create the plots
         clusts=$(find ./cellranger_data/clustering/ -name "*.csv" | sort -V)
         python3 /opt/software/plotting.py \
-            --scmatch ./scmatch_data/human_Spearman_top_ann.csv \
+            --scmatch ./scmatch_data/${species}_Spearman_top_ann.csv \
             --tsne ./cellranger_data/tsne/2_components/projection.csv \
             --clusters $clusts;
 

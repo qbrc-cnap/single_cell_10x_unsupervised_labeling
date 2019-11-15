@@ -52,6 +52,7 @@ workflow SingleCell10xUnsupervisedWorkflow {
             zipped_scmatch_output = celltype.zipped_scmatch_output,
             samplename = samplename,
             genome = genome,
+            species = species,
             git_repo_url = git_repo_url,
             git_commit_hash = git_commit_hash,
             scmatch_hash = scmatch_commit_hash.git_commit_hash,
