@@ -14,10 +14,7 @@ def main():
                         nargs="+", required=True,
                         help="Cellranger clusters")
     args = parser.parse_args()
-    colors = ["#e6194B", "#3cb44b", "#ffe119", "#4363d8", "#f58231", "#911eb4", 
-              "#42d4f4", "#f032e6", "#bfef45", "#fabebe", "#469990", "#e6beff",
-              "#9A6324", "#fffac8", "#800000", "#aaffc3", "#808000", "#ffd8b1",
-              "#000075", "#a9a9a9", "#ffffff", "#000000"]
+    colors = ["#ff0000", "#ffaa00", "#90d900", "#00f2e2", "#0088ff", "#7a00e6", "#a60042", "#730f00", "#996600", "#558000", "#00736b", "#0058a6", "#5e008c", "#ff0044", "#bf3300", "#332200", "#1fe600", "#00b3bf", "#002240", "#ca00d9", "#66001b", "#401100", "#bf9900", "#00a642", "#003c40", "#0061f2", "#530059", "#a60016", "#f26100", "#665200", "#005924", "#00ccff", "#002966", "#300033", "#330007", "#7f3300", "#eeff00", "#00331b", "#005c73", "#002ca6", "#e60099", "#cc6d00", "#9ba600", "#00ffaa", "#00aaff", "#000e66", "#800055", "#593000", "#334000", "#00a685", "#006699", "#000733", "#590030"]
     celltype_df = pd.read_csv(args.scmatch)
     tsne_df = pd.read_csv(args.tsne)
     plot_celltype_to_tsne(celltype_df, tsne_df, "1_celltype_to_tsne.png",
