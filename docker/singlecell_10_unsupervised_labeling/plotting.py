@@ -51,6 +51,7 @@ def plot_celltype_to_tsne(celltype_df, tsne_df, filename, colors):
     '''Plots the cell types from scMatch onto tSNE projection.'''
     plt.rcParams['figure.figsize'] = [15, 15]
     combined_df = tsne_df.join(celltype_df, lsuffix='cell', rsuffix='Barcode')
+    print(len(combined_df['cell type'].unique()), len(colors))
     if len(combined_df['cell type'].unique()) > len(colors):
         repeat_scal = math.ceil(
             len(combined_df['cell type'].unique()) / len(colors)
@@ -58,6 +59,7 @@ def plot_celltype_to_tsne(celltype_df, tsne_df, filename, colors):
         full_colors = colors * repeat_scal
     else:
         full_colors = colors
+    print(len(full_colors))
     for i, celltype in enumerate(combined_df['cell type'].unique()):
         x = combined_df.loc[combined_df['cell type'] == celltype, 'TSNE-1']
         y = combined_df.loc[combined_df['cell type'] == celltype, 'TSNE-2']
@@ -67,7 +69,13 @@ def plot_celltype_to_tsne(celltype_df, tsne_df, filename, colors):
         ]
         for vals in zip(x, y, a):
             x1, y1, a1, = vals
-            plt.scatter(x1, y1, c=colors[i], alpha=a1, label=celltype)
+            try:
+                plt.scatter(x1, y1, c=full_colors[i], alpha=a1, label=celltype)
+            except IndexError as e:
+                print(e)
+                print(i, len(colors))
+                import sys
+                sys.exit()
     plt.title("scMatch Cell Type Overlay onto tSNE")
     legend_elements = [Line2D([0], [0],
                               marker='o',
@@ -90,6 +98,13 @@ def plot_celltype_against_clusters(celltype_df, tsne_df, clust_df,
     combined_df = combined_df.join(clust_df, 
                                    lsuffix='Barcode',
                                    rsuffix='Barcode')
+    if len(combined_df['cell type'].unique()) > len(colors):
+        repeat_scal = math.ceil(
+            len(combined_df['cell type'].unique()) / len(colors)
+        )
+        full_colors = colors * repeat_scal
+    else:
+        full_colors = colors
     fig, axs = plt.subplots(1,2, figsize=(35, 15), sharey=True, sharex=True)
     for i, celltype in enumerate(combined_df['cell type'].unique()):
         x = combined_df.loc[combined_df['cell type'] == celltype, 'TSNE-1']
@@ -97,14 +112,14 @@ def plot_celltype_against_clusters(celltype_df, tsne_df, clust_df,
         a = combined_df.loc[combined_df['cell type'] == celltype, 'top correlation score']
         for vals in zip(x, y, a):
             x1, y1, a1, = vals
-            axs[0].scatter(x1, y1, c=colors[i], alpha=a1, label=celltype)
+            axs[0].scatter(x1, y1, c=full_colors[i], alpha=a1, label=celltype)
     legend_elements = [Line2D([0], [0],
                               marker='o',
                               color='w',
                               label=v,
                               markerfacecolor=c,
                               markersize=10)
-                       for c, v in zip(colors, combined_df['cell type'].unique())]
+                       for c, v in zip(full_colors, combined_df['cell type'].unique())]
     axs[0].legend(handles=legend_elements,
                   loc='center left',
                   bbox_to_anchor=(1, 0.5))
@@ -112,7 +127,7 @@ def plot_celltype_against_clusters(celltype_df, tsne_df, clust_df,
     for i, clust in enumerate(sorted(combined_df['Cluster'].unique())):
         x = combined_df.loc[combined_df['Cluster'] == clust, 'TSNE-1']
         y = combined_df.loc[combined_df['Cluster'] == clust, 'TSNE-2']
-        axs[1].scatter(x, y, c=colors[i], label=clust)
+        axs[1].scatter(x, y, c=full_colors[i], label=clust)
     axs[1].set_title(cluster_title)
     axs[1].legend(loc="center left", bbox_to_anchor=(1, 0.5))
     fig.tight_layout()
