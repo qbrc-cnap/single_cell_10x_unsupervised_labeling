@@ -63,6 +63,7 @@ workflow SingleCell10xUnsupervisedWorkflow {
     call collate_outputs {
         input:
             cellranger_qc_report = count.cellranger_qc_summary,
+            zipped_scmatch_output = celltype.zipped_scmatch_output,
             report = report_gen.report,
             plots = report_gen.zipped_plots,
             diffexp_xlsx = convert_to_excel.excel_diffexp,
@@ -84,6 +85,7 @@ workflow SingleCell10xUnsupervisedWorkflow {
 
 task collate_outputs {
     File cellranger_qc_report
+    File zipped_scmatch_output
     File report
     File plots
     File diffexp_xlsx
@@ -96,6 +98,7 @@ task collate_outputs {
     
     command {
         mkdir analysis_results;
+        mkdir analysis_results/cell_typing;
         mkdir analysis_results/analysis_report;
         mkdir analysis_results/differential_expression;
         mkdir analysis_results/qc_report;
@@ -103,6 +106,7 @@ task collate_outputs {
         
         cp ${cellranger_qc_report} analysis_results/qc_report;
         cp ${report} analysis_results/analysis_report;
+        unzip ${zipped_scmatch_output} -d analysis_results/cell_typing;
         unzip ${plots} -d analysis_results/analysis_report;
         cp ${diffexp_xlsx} analysis_results/differential_expression;
         cp ${raw_counts} ${filtered_counts} analysis_results/counts;
