@@ -8,7 +8,7 @@ keyrings.alt==1.3
 kiwisolver==1.0.1
 MarkupSafe==1.1.1
 matplotlib==3.0.3
-numpy==1.16.2
+numpy==1.22.0
 packaging==19.0
 pandas==0.24.1
 Pillow==5.4.1
