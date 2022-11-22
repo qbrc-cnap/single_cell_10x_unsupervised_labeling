@@ -11,7 +11,7 @@ matplotlib==3.0.3
 numpy==1.16.2
 packaging==19.0
 pandas==0.24.1
-Pillow==5.4.1
+Pillow==9.3.0
 pyasn1==0.1.9
 pycrypto==2.6.1
 pygobject==3.22.0
